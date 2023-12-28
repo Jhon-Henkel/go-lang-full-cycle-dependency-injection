@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"github.com/Jhon-Henkel/go-lang-full-cycle-dependency-injection/product"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -14,13 +13,12 @@ func main() {
 	}
 	defer db.Close()
 
-	repository := product.NewProductRepository(db)
-	useCase := product.NewProductUseCase(repository)
+	useCase := NewUseCase(db)
 
-	product, err := useCase.GetProduct(1)
+	prod, err := useCase.GetProduct(1)
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println(product.Name)
+	fmt.Println(prod.Name)
 }
